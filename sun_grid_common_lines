@@ -1,0 +1,5 @@
+#$ -o ./output/
+#$ -e ./error/
+#$ -q mrsec.q    ### specify which queue you want
+#$ -cwd        ### not necessary but useful; it tells the system you want to start  
+               ### from the same folder you were when you submitted the job                     
