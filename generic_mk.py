@@ -42,9 +42,11 @@ param2 = [4.0,5.0,6.0,7.0]
 job_name = 'test'
 job_num = 1 # To keep track of the total number of jobs, if needed.
 for (p1,p2) in product(param1,param2):
+    ## Define the command to execute to run the code
+    exec_cmd = "python3 stupid_program.py --p1 {0:.1f} --p2 {1:.1f} --dir {2}".format(p1,p2,parentfolder)
     if(server=="local"):
-        #  
-        Popen("python3 stupid_program.py --p1 {0:.1f} --p2 {1:.1f} --dir {2}".format(p1,p2,parentfolder).split())
+        # Run the program  
+        Popen("{}".format(exec_cmd).split())
     elif(server=="hpcc"):
         ## Some lines in the bash script are going to be independent of the parameters.
         ## I have stored them in a separate file called slurm_common_lines, but they can be included here too.
@@ -55,24 +57,32 @@ for (p1,p2) in product(param1,param2):
         script += "\n#SBATCH --job-name={0}_{1:.1f}_{2:.1f}\n".format(job_name,p1,p2)
         ## Loading the essential modules (in this case, python3 anaconda) on the cluster, if required.
         script += "\nmodule load share_modules/ANACONDA/5.3_py3\n"
-        ## Run the program with current parameters - "srun {program_to_run}"
-        script += "srun python3 stupid_program.py --p1 {0:.1f} --p2 {1:.1f} --dir {2}".format(p1,p2,parentfolder)
+        ## Run the program - "srun {program_to_run}"
+        script += "srun " + exec_cmd
         ## Write contents to a bash script
-        with open("slurm_script.sh",'w') as g:
+        script_n = "script_slurm_{}.sh".format(job_num) # Name of bash script
+        with open(script_n,'w') as g:
             g.write(script)
         ## Submit the specific job using sbatch    
-        call(["sbatch", "slurm_script.sh"])
+        call(["sbatch", script_n])
         ## Delete the temporary script. Save one of them to check if it looks okay
-        if(job_num!=1): os.remove("slurm_script_test.sh")
+        if(job_num!=1): os.remove(script_n)
     elif(server=="hpc"):
         with open ('sun_grid_common_lines.txt','r') as f:
             qsub_base = f.read()
-        qsub = "#$ -N {0}_{1:.1f}_{2:.1f}\n".format(job_name,p1,p2)
-        qsub += qsub_base
-        qsub += "module load PYTHON3 \n"
-        qsub += "python3 stupid_program.py --p1 {0:.1f} --p2 {1:.1f} --dir {2}".format(p1,p2,parentfolder)
-        with open("sun_grid_script",'w') as g:
-            g.write(qsub)
-        call(["qsub", "sun_grid_script"])
-        os.remove("sun_grid_script")
+        ## Now we add a parameter-specific job name, for instance "test__{p1}_{p2}"
+        script = "#$ -N {0}_{1:.1f}_{2:.1f}\n".format(job_name,p1,p2)
+        script += qsub_base
+        ## Loading the essential modules (in this case, python3 anaconda) on the cluster, if required.
+        script += "module load PYTHON3 \n"
+        ## Run the program - "{program_to_run}"
+        script += exec_cmd
+        ## Write contents to a bash script
+        script_n = "script_sungrid_{}.sh".format(job_num) # Name of bash script
+        ## Submit the specific job using qsub    
+        with open(script_n,'w') as g:
+            g.write(script)
+        call(["qsub", script_n])
+        ## Delete the temporary script. Save one of them to check if it looks okay
+        if(job_num!=1): os.remove(script_n)
     job_num +=1
