@@ -1,7 +1,10 @@
 # This is an example program to illustrate the use of 
 # the job array submission script `generic_mk.py`.
-# It takes in two arguments `p1` and `p2` and 
-# saves the output of the multiplication `p1*p2` in a file.
+# This program saves the output of the multiplication 
+# of two floats `p1` and `p2` in a file.
+# It takes in three arguments - two of which are floats `p1` and `p2`,
+# and the third one is a string containing the 
+# directory in which to save the output. 
 # The idea is to illustrate how to submit this job for a table of 
 # values of `p1` and `p2`, which is shown in `generic_mk.py`
 
