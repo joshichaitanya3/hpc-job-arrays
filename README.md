@@ -13,8 +13,9 @@ Specify the name of server. Default is hpcc. Other options are local and hpc as 
 
 Specify your username on the server. This will be used to determine the directory on that server where the data will be stored.
 
+## Demo using an example
 
-*stupid_program.py* : This is our computation script. It takes two numbers `p1` and `p2` as its input parameters, calculates their product, and saves the answer in a file.
+*example_program.py* : This is our computation script. It takes two numbers `p1` and `p2` as its input parameters, calculates their product, and saves the answer in a file.
 
 OPTIONS:
 
