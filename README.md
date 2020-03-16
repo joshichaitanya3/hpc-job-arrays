@@ -1,4 +1,4 @@
-# hpc_job_arrays
+# HPC Job Arrays | Submit multiple jobs with different parameters
 Python script to submit jobs to computing clusters using SLURM / Sun Grid Engine.
 
 *generic_mk.py* : This is an example python script to submit multiple jobs which run the same code with different input parameters. This is ideal for parameter sweeps.
