@@ -36,6 +36,10 @@ Specify the path to the parent directory where data is to be stored. Usually thi
 
 There are usually some common lines in the bash scripts that do not depend on the parameters, like the nodes to be used, or the email id to be used, etc. I have made text files to store these lines for simplicity.
 
-*slurm_common_lines* : This one contains the common bash script lines for the new HPCC which uses SLURM
+*slurm_common_lines.txt* : This one contains the common bash script lines for the new HPCC which uses SLURM
 
-*sun_grid_common_lines* : This one contains the common bash script lines for the old cluster which uses the Sun Grid Engine.
+*sun_grid_common_lines.txt* : This one contains the common bash script lines for the old cluster which uses the Sun Grid Engine.
+
+*stampede2_common_lines.txt* : This one contains the common bash script lines for Stampede2 which uses SLURM
+
+*expanse_common_lines.txt* : This one contains the common bash script lines for Expanse which uses SLURM.
