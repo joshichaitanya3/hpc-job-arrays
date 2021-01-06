@@ -1,0 +1,7 @@
+#!/bin/bash
+#SBATCH -N 1               # Total # of nodes (must be 1 for OpenMP)
+#SBATCH -n 1               # Total # of mpi tasks (should be 1 for OpenMP)
+#SBATCH -p normal          # Queue (partition) name
+#SBATCH --time=23:59:59                         # Running time (in hours-minutes-seconds)
+#SBATCH --mail-type=FAIL              # send an email when the job begins, ends or fails
+#SBATCH --mail-user=user@university.edu      # Email address to send the job status

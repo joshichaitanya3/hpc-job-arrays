@@ -1,0 +1,8 @@
+#!/bin/bash
+# Sample batchscript to run an OpenMP job on HPC
+#SBATCH --account=lab
+#SBATCH --partition=compute               # queue to be used
+#SBATCH --time=23:59:59                         # Running time (in hours-minutes-seconds)
+#SBATCH --mail-type=BEGIN,END,FAIL              # send an email when the job begins, ends or fails
+#SBATCH --mail-user=user@university.edu      # Email address to send the job status
+#SBATCH --ntasks=1                              # Number of computer nodes
